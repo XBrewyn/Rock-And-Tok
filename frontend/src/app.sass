@@ -1,0 +1,52 @@
+@font-face
+  font-family: 'futura'
+  src: url('../public/fonts/Futura.otf') format('opentype')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: "Liberty"
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/907368/liberty.otf')
+
+body
+  align-items: center
+  background-color: #0e090d
+  display: flex
+  font-family: futura
+  justify-content: center
+
+main
+  padding: 35px
+  width: 2176px
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active
+    background-color: transparent !important
+
+  input,
+  select,
+  textarea
+    background-color: transparent
+    border: none
+    border-bottom: solid 1px #454545
+    color: white
+    margin-bottom: 20px
+    margin-top: 10px
+    outline: none
+    padding: 10px 0
+    transition: border 0.4s ease
+    width: 100%
+
+    &::placeholder
+      color: white
+
+    &:focus
+      border-bottom: solid 1px white
+
+  select
+    cursor: pointer
+
+  textarea
+    resize: none

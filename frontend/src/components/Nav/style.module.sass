@@ -1,0 +1,108 @@
+@import '../../../public/mixin/helper.module'
+
+.nav
+  align-items: center
+  color: white
+  display: flex
+  font-size: clamp(1rem, 2.5vw, 20px)
+  font-weight: 300
+  justify-content: space-between
+  letter-spacing: .05em
+
+  &__menuInput
+    display: none
+
+  &__menuInput:checked + .nav__menu + .nav__tabs
+    display: flex
+
+  &__title
+    align-items: center
+    border-radius: 5px
+    border: solid 2px white
+    display: flex
+    padding: 20px
+
+    a
+      color: white
+      text-decoration: none
+
+  &__tabs
+    list-style: none
+
+  &__tab
+    display: inline
+    opacity: 0.5
+    padding: 0 10px
+    transition: opacity 1s ease
+
+    &:last-child
+      padding-right: 0
+
+  &__selected
+    opacity: 1
+
+    .nav__link
+      &::before
+        animation: identifier 1s infinite
+        background-color: #9c27b0c4
+        border-radius: 50%
+        content: ''
+        left: calc(50% - 10px)
+        margin-top: 48%
+        padding: 10px
+        position: absolute
+        transition: background-color 2s ease-out
+
+  &__link
+    color: white
+    position: relative
+    text-decoration: none
+
+  &__menu
+    cursor: pointer
+    display: none
+    flex-direction: column
+    height: 15px
+    justify-content: space-between
+    width: 25px
+
+    > div
+      background-color: white
+      height: 2px
+      width: 80%
+
+  @include mobile
+    &__menu
+      display: flex
+
+    &__tab
+      margin-bottom: 10px
+
+      > a
+        color: white
+
+    &__tabs
+      align-items: center
+      background-color: #9c27b0
+      display: none
+      justify-content: center
+      padding: 10px
+      position: absolute
+      right: 40px
+      top: 67px
+      z-index: 1
+
+    &__selected
+      opacity: 1
+
+      .nav__link
+        &:before
+          display: none
+
+  @include tablet
+    &__selected > &__link
+      &::before
+        left: calc(50% - 7px)
+        padding: 7px
+
+  @include heart-beat()

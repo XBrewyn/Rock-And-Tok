@@ -1,0 +1,55 @@
+.loading
+  align-items: center
+  background-color:  #9b27b0a1
+  color: white
+  display: flex
+  letter-spacing: 0.5em
+  font-size: clamp(1rem, 2.5vw, 7rem)
+  height: 100vh
+  justify-content: center
+  left: 0
+  opacity: 1
+  position: fixed
+  top: 0
+  width: 100vw
+  z-index: 1000
+
+  &__top
+    animation: slideTop 1s ease-in-out forwards
+
+  &__bottom
+    animation: slideBottom 1s ease-in-out forwards
+
+  &__left
+    animation: slideLeft 1s ease-in-out forwards
+
+  &__right
+    animation: slideRight 1s ease-in-out forwards
+
+  @keyframes slideTop
+    0%
+      top: 0
+
+    100%
+      top: -100vh
+
+  @keyframes slideBottom
+    0%
+      top: 0
+
+    100%
+      top: 100vh
+
+  @keyframes slideLeft
+    0%
+      left: 0
+
+    100%
+      left: -100vw
+
+  @keyframes slideRight
+    0%
+      left: 0
+
+    100%
+      left: 100vw
