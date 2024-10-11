@@ -71,11 +71,11 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        // { from: pathPublic('robots.txt'), to: '' },
-        // { from: pathPublic('manifest.json'), to: '' },
-        // { from: pathPublic('logo192.png'), to: '' },
-        // { from: pathPublic('logo512.png'), to: '' },
-        // { from: pathPublic('favicon.ico'), to: '' },
+        { from: pathPublic('robots.txt'), to: '' },
+        { from: pathPublic('manifest.json'), to: '' },
+        { from: pathPublic('images/logo192.jpg'), to: '' },
+        { from: pathPublic('images/logo512.jpg'), to: '' },
+        { from: pathPublic('images/favicon.ico'), to: '' },
         { from: pathPublic('audios'), to: '' },
         { from: pathPublic('images'), to: '' },
         { from: pathPublic('videos'), to: '' },

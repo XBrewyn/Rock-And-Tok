@@ -1,7 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+
+const pathPublic = (fileName) =>
+  path.resolve(__dirname, 'public', fileName);
 
 const config = {
   mode: 'production',
@@ -54,15 +58,28 @@ const config = {
   },
 
   plugins: [
-    new Dotenv(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, 'public', 'index.html'),
-      hash: true
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: pathPublic('robots.txt'), to: '' },
+        { from: pathPublic('manifest.json'), to: '' },
+        { from: pathPublic('images/logo192.jpg'), to: '' },
+        { from: pathPublic('images/logo512.jpg'), to: '' },
+        { from: pathPublic('images/favicon.ico'), to: '' },
+        { from: pathPublic('audios'), to: '' },
+        { from: pathPublic('images'), to: '' },
+        { from: pathPublic('videos'), to: '' },
+      ],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      hash: true,
+      favicon: pathPublic('images/favicon.ico'),
+    }),
+    new Dotenv(),
   ],
 }
 
