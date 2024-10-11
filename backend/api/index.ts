@@ -33,9 +33,14 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://accounts.google.com"],
+      frameSrc: ["'self'", "https://accounts.google.com"],  // Allow embedding Google content
+      connectSrc: ["'self'", "https://accounts.google.com"], // Allow API requests to Google
+      imgSrc: ["'self'", "https://accounts.google.com"],
+      styleSrc: ["'self'", "'unsafe-inline'"],  // If inline styles are needed
     },
   })
 );
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
