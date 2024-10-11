@@ -32,11 +32,11 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://accounts.google.com"],
-      frameSrc: ["'self'", "https://accounts.google.com"],  // Allow embedding Google content
-      connectSrc: ["'self'", "https://accounts.google.com"], // Allow API requests to Google
+      scriptSrc: ["'self'", "https://accounts.google.com", "https://vercel.live"],
+      styleSrc: ["'self'", "https://accounts.google.com", "'unsafe-inline'"],
+      frameSrc: ["'self'", "https://accounts.google.com"],
+      connectSrc: ["'self'", "https://accounts.google.com", "https://vercel.live"],
       imgSrc: ["'self'", "https://accounts.google.com"],
-      styleSrc: ["'self'", "'unsafe-inline'"],  // If inline styles are needed
     },
   })
 );
