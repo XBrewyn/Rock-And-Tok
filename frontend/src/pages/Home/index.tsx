@@ -105,7 +105,7 @@ const Home: React.FC = (): JSX.Element => {
     <section className={style.home}>
       <div>
         <video className={style.home__video} ref={videoRef} loop>
-          <source src='./videos/home.mp4' />
+          <source src='/home.mp4' />
         </video>
         <div
           ref={playButtonRef}

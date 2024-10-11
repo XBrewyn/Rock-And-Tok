@@ -54,7 +54,7 @@ const form: Fields = {
   },
 }
 
-const BANNER_URL: string = './images/sign-up.webp';
+const BANNER_URL: string = '/sign-up.webp';
 
 export {
   form,

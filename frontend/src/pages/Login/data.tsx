@@ -15,7 +15,7 @@ const form: Fields = {
   },
 }
 
-const BANNER_URL: string = './images/log-in.jpg';
+const BANNER_URL: string = '/log-in.jpg';
 
 export {
   form,
