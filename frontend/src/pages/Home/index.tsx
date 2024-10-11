@@ -35,7 +35,7 @@ const Home: React.FC = (): JSX.Element => {
     Math.floor(Math.random() * length);
 
   const handleClickPlay = (): void => {
-      const audio: HTMLAudioElement = new Audio('./audios/home.mp3');
+      const audio: HTMLAudioElement = new Audio('/home.mp3');
       const body: HTMLElement = document.body;
       let canStopTransition: boolean = false;
 

@@ -8,7 +8,7 @@ import { Tab } from './type';
 import context from '../../global/context';
 
 const Nav: React.FC = (): JSX.Element => {
-  const [{ user: { role } }, dispatch] = useContext(context);
+  const [{ user: { role } }] = useContext(context);
   const [tabs, setTabs] = useState<Tab[]>([])
   const inputRef: React.MutableRefObject<any> = useRef<any>(null);
   const location: any = useLocation();
@@ -51,7 +51,7 @@ const Nav: React.FC = (): JSX.Element => {
           <img
             alt="logo"
             className={style.nav__logo}
-            src="/images/logo.jpg"
+            src="/logo.jpg"
           />
         </Link>
 

@@ -14,6 +14,7 @@ import {
   initialDatabase
 } from '../tools/functions';
 import middlewareToken from '../middlewares/token';
+import middlewareCache from '../middlewares/cache';
 
 const app: Express = express();
 const PORT: number = 3000;
@@ -39,6 +40,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middlewareToken);
+app.use(middlewareCache);
 
 app.use('/api/v1', router);
 
