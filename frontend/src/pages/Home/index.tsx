@@ -35,8 +35,8 @@ const Home: React.FC = (): JSX.Element => {
     Math.floor(Math.random() * length);
 
   const handleClickPlay = (): void => {
-      const audio = new Audio('/images/audio.mp3');
-      const body = document.body;
+      const audio: HTMLAudioElement = new Audio('./audios/home.mp3');
+      const body: HTMLElement = document.body;
       let canStopTransition: boolean = false;
 
       if (playButtonRef.current) {
@@ -53,7 +53,7 @@ const Home: React.FC = (): JSX.Element => {
       setPlayInterval(setInterval(() => {
         if (audio.currentTime > 5.4) {
           body.style.opacity = '0';
-          body.style.transition = 'opacity 1.2s ease';
+          body.style.transition = 'opacity 1s ease';
 
           timeoutRef.current = setTimeout(() => {
             body.style.opacity = '1';
@@ -105,7 +105,7 @@ const Home: React.FC = (): JSX.Element => {
     <section className={style.home}>
       <div>
         <video className={style.home__video} ref={videoRef} loop>
-          <source src='/images/video2.mp4' />
+          <source src='./videos/home.mp4' />
         </video>
         <div
           ref={playButtonRef}

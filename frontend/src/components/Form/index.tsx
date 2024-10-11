@@ -1,8 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { Fields, FormField } from './type';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
 import style from './style.module.sass';
+import { ObjectValueString } from '../../tools/type';
+import { send } from '../../tools/functions';
+import Loading from './Loading';
+import { HTTP_STATUS_CODES } from '../../tools/const';
 
 interface Props {
   avoidEmptyField?: boolean;
@@ -12,6 +15,7 @@ interface Props {
   onData?: (data: any) => void;
   title?: string;
   bannerURL?: string;
+  api: string;
 }
 
 interface State {
@@ -24,18 +28,53 @@ const Form: React.FC<Props> = ({
   google,
   onData = () => { },
   title,
-  bannerURL
+  bannerURL,
+  api
 }): JSX.Element => {
   const [state, setState] = useState<State>(fields);
   const fieldKeys: string[] = useMemo(() => Object.keys(state), []);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const onClick = (event: any): void => {
+  const onClick = async (event: any): Promise<void> => {
     event && event.preventDefault();
+    setIsLoading(true);
 
     if (isValid()) {
-      onData(state);
-      console.log(state)
+      handleApiResponse({ data: getData(), api });
     }
+
+    setIsLoading(false);
+  }
+
+  const handleApiResponse = async ({ data, api }: { data: any, api: string;}) => {
+    const { response: { data: dataResponse, statusCode } } = await send({ api, data }).post();
+    const isBadRequest: boolean = statusCode === HTTP_STATUS_CODES.BAD_REQUEST;
+    const isSuccessfully: boolean = statusCode === HTTP_STATUS_CODES.OK;
+
+    if (isSuccessfully) {
+      onData(dataResponse);
+    }
+
+    if (isBadRequest) {
+      Object.keys(dataResponse).forEach((key: string): void => {
+        const field: FormField = state[key];
+
+        if (field) {
+          field.errorMessage = dataResponse[key] || '';
+          setField(key, field);
+        }
+      });
+    }
+  }
+
+  const getData = (): ObjectValueString => {
+    const data: ObjectValueString = {};
+
+    Object.keys(state).forEach((key: string) => {
+      data[key] = state[key].value || '';
+    });
+
+    return data;
   }
 
   const onKeyDown = ({ key }: any): void => {
@@ -55,7 +94,7 @@ const Form: React.FC<Props> = ({
       const isErrorMessage: boolean = !!field.validator && !field.validator.regExp.test(value);
 
       if (isEmpty && !field.avoidEmptyField) {
-        field.errorMessage = 'Por favor, complete este campo.';
+        field.errorMessage = 'Please fill out this required field.';
       } else if (isErrorMessage && !field.avoidEmptyField || value && isErrorMessage) {
         field.errorMessage = field.validator?.message;
       } else {
@@ -134,20 +173,25 @@ const Form: React.FC<Props> = ({
             </div>
           )
         })}
-        <input
-          onClick={onClick}
-          type="submit"
-          value={buttonText}
-          className={style.form__submit}
-        />
+
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <input
+            onClick={onClick}
+            type="submit"
+            value={buttonText}
+            className={style.form__submit}
+          />
+        )}
+
         <GoogleOAuthProvider clientId={process.env.GOOGLE_ID_CLIENT || ''}>
           {google &&
             <GoogleLogin
-              onSuccess={credentialResponse => {
+              onSuccess={async (credentialResponse) => {
                 const token: string = credentialResponse.credential || '';
-                const decoded: any = jwtDecode(token) || {};
 
-                onData(decoded);
+                handleApiResponse({ api: `${api}-google`, data: { token } });
               }}
 
               onError={() => {

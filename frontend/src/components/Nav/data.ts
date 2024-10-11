@@ -1,12 +1,10 @@
-const tabs = [
+import { Tab } from './type';
+
+const homeTabs: Tab[] = [
   {
     label: 'Home',
     path: '/'
   },
-  // {
-  //   label: 'Quiz',
-  //   path: '/quiz'
-  // },
   {
     label: 'Sign-up',
     path: '/sign-up'
@@ -17,6 +15,18 @@ const tabs = [
   },
 ];
 
+const studentTabs: Tab[] = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Sign-out',
+    path: '/sign-out'
+  },
+];
+
 export {
-  tabs
-}
+  homeTabs,
+  studentTabs
+};

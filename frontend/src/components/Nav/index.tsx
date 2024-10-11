@@ -1,17 +1,31 @@
-import React, { useRef, useState } from 'react';
-import { tabs } from './data';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { studentTabs, homeTabs } from './data';
 import { Link, useLocation } from 'react-router-dom';
 import style from './style.module.sass';
-import { getClassName } from '../../tools/functions';
+import { getClassName, isSignOut, isStudent } from '../../tools/functions';
 import Loading from './Loading';
+import { Tab } from './type';
+import context from '../../global/context';
 
 const Nav: React.FC = (): JSX.Element => {
+  const [{ user: { role } }, dispatch] = useContext(context);
+  const [tabs, setTabs] = useState<Tab[]>([])
   const inputRef: React.MutableRefObject<any> = useRef<any>(null);
   const location: any = useLocation();
   const [loading, setLoading] = useState({
     text: '',
     canShow: true,
   });
+
+  useEffect(() => {
+    if (isStudent(role)) {
+      setTabs(studentTabs);
+    }
+
+    if (isSignOut(role)) {
+      setTabs(homeTabs);
+    }
+  }, [role]);
 
   const getTabClassName = (path: string): string => {
     const isFirstTab: boolean = path === location.pathname;
@@ -29,9 +43,17 @@ const Nav: React.FC = (): JSX.Element => {
   return (
     <>
       <nav className={style.nav}>
-        <div className={style.nav__title}>
-          <Link to="/">Rock And Tok</Link>
-        </div>
+        <Link
+          onClick={() => onClick('Home')}
+          to="/"
+          className={style.nav__logoContainer}
+        >
+          <img
+            alt="logo"
+            className={style.nav__logo}
+            src="/images/logo.jpg"
+          />
+        </Link>
 
         <input
           className={style.nav__menuInput}
@@ -51,11 +73,11 @@ const Nav: React.FC = (): JSX.Element => {
             <li
               className={getTabClassName(path)}
               key={index}
-              onClick={() => onClick(label)}
             >
               <Link
                 className={style.nav__link}
                 to={path}
+                onClick={() => onClick(label)}
               >
                 {label}
               </Link>

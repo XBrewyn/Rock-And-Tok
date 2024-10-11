@@ -1,11 +1,15 @@
 import ACTION from './action';
 import {ROLE} from '../tools/const';
 
+type DefaultFieldUser = string | null;
+
 type User = {
-  _id: string | null;
-  email: string | null;
-  name: string | null;
-  username: string | null;
+  _id: DefaultFieldUser;
+  name: DefaultFieldUser;
+  email: DefaultFieldUser;
+  favoriteRockGenre: DefaultFieldUser;
+  phone: DefaultFieldUser;
+  photo: DefaultFieldUser;
   role: (
     typeof ROLE.ADMIN |
     typeof ROLE.STUDENT |

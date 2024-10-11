@@ -15,12 +15,13 @@
   &__menuInput:checked + .nav__menu + .nav__tabs
     display: flex
 
-  &__title
-    align-items: center
-    border-radius: 5px
+  &__logoContainer
     border: solid 2px white
-    display: flex
-    padding: 20px
+    padding: 10px
+    border-radius: 8px
+
+  &__logo
+    width: 150px
 
     a
       color: white
@@ -72,6 +73,9 @@
       width: 80%
 
   @include mobile
+    &__logo
+      width: 100px
+
     &__menu
       display: flex
 

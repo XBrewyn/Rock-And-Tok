@@ -4,12 +4,13 @@ interface CssExports {
   'identifier': string;
   'nav': string;
   'nav__link': string;
+  'nav__logo': string;
+  'nav__logoContainer': string;
   'nav__menu': string;
   'nav__menuInput': string;
   'nav__selected': string;
   'nav__tab': string;
   'nav__tabs': string;
-  'nav__title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -76,7 +76,9 @@ module.exports = {
         // { from: pathPublic('logo192.png'), to: '' },
         // { from: pathPublic('logo512.png'), to: '' },
         // { from: pathPublic('favicon.ico'), to: '' },
+        { from: pathPublic('audios'), to: '' },
         { from: pathPublic('images'), to: '' },
+        { from: pathPublic('videos'), to: '' },
       ],
     }),
     new MiniCssExtractPlugin({

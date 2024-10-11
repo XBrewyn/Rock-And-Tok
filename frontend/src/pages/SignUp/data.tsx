@@ -54,7 +54,7 @@ const form: Fields = {
   },
 }
 
-const BANNER_URL: string = 'https://images.pexels.com/photos/14436042/pexels-photo-14436042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+const BANNER_URL: string = './images/sign-up.webp';
 
 export {
   form,
