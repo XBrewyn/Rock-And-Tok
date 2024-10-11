@@ -32,7 +32,12 @@ const getTokenFromHeader = (req: Request): string | null => {
   return token;
 };
 
+const url = (req: Request): (url: string) => void =>
+  (url: string) =>
+    req.originalUrl === `/api/v1/${url}`;
+
 export {
   getTokenFromHeader,
   verifyToken,
+  url
 };

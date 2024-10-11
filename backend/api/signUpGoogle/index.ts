@@ -1,19 +1,20 @@
 import { Request, Response } from 'express';
 import { LoginTicket, OAuth2Client, TokenPayload } from 'google-auth-library';
 import User from '../../schemas/user.schema';
-import { getLocation, getResponse, getToken, send, setCookie } from '../../tools/functions';
+import { connectToDatabase, getLocation, getResponse, getToken, send, setCookie } from '../../tools/functions';
 import { ResponseSend } from '../../tools/type';
 import { HTTP_STATUS_CODES } from '../../tools/consts';
 
 const { GOOGLE_ID_CLIENT = '' } = process.env;
 const client = new OAuth2Client(GOOGLE_ID_CLIENT);
 
-// Route to handle Google login
 const endpoint = async (req: Request, res: Response) => {
   const { token = '' } = req.body;
   const response: ResponseSend = getResponse(res, 'Validation failed, please check your input and try again.');
 
   try {
+    await connectToDatabase();
+
     const ticket: LoginTicket = await client.verifyIdToken({
       idToken: token,
       audience: GOOGLE_ID_CLIENT,
