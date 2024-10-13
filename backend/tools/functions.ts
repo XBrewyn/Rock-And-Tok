@@ -4,7 +4,7 @@ import path from 'path';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { HTTP_STATUS_CODES, ROLE } from './consts';
-import { Cookie, ResponseSend, Token, Location } from './type';
+import { Cookie, ResponseSend, Token, Location, TryCatch } from './type';
 import User from '../schemas/user.schema';
 
 const {
@@ -42,22 +42,6 @@ const serveApp = (app: Express): void => {
     res.sendFile(path.resolve(__dirname, BUILD_PATH, 'index.html'))
   );
 };
-
-/**
- * Sends a JSON response.
- * @param {Object} param
- * @param {Object} param.res - Express response object.
- * @param {number} [param.statusCode=HTTP_STATUS_CODES.OK] - HTTP status code.
- * @param {Object|null} [param.data=null] - Data to include in the response.
- * @param {string} [param.message=''] - Message to include in the response.
- */
-const send = ({
-  res,
-  statusCode = HTTP_STATUS_CODES.OK,
-  data = null,
-  message = '',
-}: ResponseSend): express.Response<any, Record<string, any>> =>
-  res.status(statusCode).json({ response: { statusCode, data, message } });
 
 let isConnected: any;
 
@@ -222,6 +206,44 @@ const getLocation = async (req: Request): Promise<Location> => {
   };
 };
 
+/**
+ * Executes an async function wrapped in a try-catch block, handles errors and sends a response.
+ *
+ * @param {Object} params - The parameters for the function.
+ * @param {Response} params.res - The HTTP response object to be used for sending responses.
+ * @param {string} params.message - The message to include in the initial response.
+ * @param {(response: ResponseSend) => Promise<any>} params.endpoint - An async function to be executed, receiving a response object.
+ *
+ * @returns {Promise<void>} Resolves after the endpoint function is executed or after an error is handled.
+ */
+async function catchTry({ res, message, endpoint }: TryCatch) {
+  const response: ResponseSend = getResponse(res, message);
+
+  try {
+    await endpoint(response);
+  }  catch(error) {
+    response.message = `Error ${error}`;
+    response.statusCode = HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR;
+  }
+
+  send(response);
+}
+
+/**
+ * Sends a JSON response.
+ * @param {Object} param
+ * @param {Object} param.res - Express response object.
+ * @param {number} [param.statusCode=HTTP_STATUS_CODES.OK] - HTTP status code.
+ * @param {Object|null} [param.data=null] - Data to include in the response.
+ * @param {string} [param.message=''] - Message to include in the response.
+ */
+const send = ({
+  res,
+  statusCode = HTTP_STATUS_CODES.OK,
+  data = null,
+  message = '',
+}: ResponseSend): express.Response<any, Record<string, any>> =>
+  res.status(statusCode).json({ response: { statusCode, data, message } });
 
 export {
   isDev,
@@ -234,5 +256,6 @@ export {
   auth,
   hash,
   getResponse,
-  getLocation
+  getLocation,
+  catchTry
 };

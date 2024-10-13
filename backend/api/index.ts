@@ -18,7 +18,11 @@ import middlewareCache from '../middlewares/cache';
 
 const app: Express = express();
 const PORT: number = 3000;
-const { DEV_HOST } = process.env;
+const {
+  DEV_HOST = '',
+  GOOGLE_HOST = '',
+  VERCEL_HOST = ''
+} = process.env;
 
 connectToDatabase().then(() => {
   initialDatabase();
@@ -32,11 +36,11 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://accounts.google.com", "https://vercel.live"],
-      styleSrc: ["'self'", "https://accounts.google.com", "'unsafe-inline'"],
-      frameSrc: ["'self'", "https://accounts.google.com"],
-      connectSrc: ["'self'", "https://accounts.google.com", "https://vercel.live"],
-      imgSrc: ["'self'", "https://accounts.google.com"],
+      scriptSrc: ["'self'", GOOGLE_HOST, VERCEL_HOST],
+      styleSrc: ["'self'", GOOGLE_HOST, "'unsafe-inline'"],
+      frameSrc: ["'self'", GOOGLE_HOST],
+      connectSrc: ["'self'", GOOGLE_HOST, VERCEL_HOST],
+      imgSrc: ["'self'", GOOGLE_HOST],
     },
   })
 );
@@ -46,7 +50,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middlewareToken);
 app.use(middlewareCache);
-
 app.use('/api/v1', router);
 
 isDev()

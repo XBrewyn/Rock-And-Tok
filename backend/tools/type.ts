@@ -10,6 +10,10 @@ type ObjectValueNumber = {
   [key: string]: number;
 };
 
+type ObjectValuValidator = {
+  [key: string]: Validator;
+};
+
 type Token = {
   _id: ObjectId;
   type?: 'auth';
@@ -37,7 +41,7 @@ type ResponseSend = {
 type Cookie = {
   res: Response,
   value: string;
-  expires: number;
+  expires?: number;
 };
 
 type Location = {
@@ -46,11 +50,25 @@ type Location = {
   region: string;
 };
 
+type Validator = {
+  message: string;
+  regExp: RegExp;
+};
+
+type TryCatch = {
+  res: Response;
+  message: string;
+  endpoint: (response: ResponseSend) => Promise<any>;
+};
+
 export type {
   ObjectValueString,
   ObjectValueNumber,
   ResponseSend,
   Token,
   Cookie,
-  Location
+  Location,
+  Validator,
+  ObjectValuValidator,
+  TryCatch
 };

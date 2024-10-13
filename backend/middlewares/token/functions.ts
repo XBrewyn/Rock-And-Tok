@@ -32,7 +32,7 @@ const getTokenFromHeader = (req: Request): string | null => {
   return token;
 };
 
-const url = (req: Request): (url: string) => void =>
+const url = (req: Request): (url: string) => boolean =>
   (url: string) =>
     req.originalUrl === `/api/v1/${url}`;
 

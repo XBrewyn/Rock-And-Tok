@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-const endpoint = async (req: Request, res: Response, next: NextFunction) => {
+const endpoint = async (_: Request, res: Response, next: NextFunction): Promise<void> => {
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');

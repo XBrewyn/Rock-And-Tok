@@ -1,4 +1,4 @@
-import { ObjectValueNumber, ObjectValueString } from './type';
+import { ObjectValueNumber, ObjectValueString, ObjectValuValidator } from './type';
 
 const ROLE: ObjectValueString = {
   ADMIN: 'ADMIN',
@@ -23,7 +23,7 @@ const ENDPOINT: ObjectValueString = {
   LOGIN: 'login'
 };
 
-const VALIDATOR: { [key: string]: { message: string; regExp: RegExp; }; } = {
+const VALIDATOR: ObjectValuValidator = {
   USERNAME: {
     message: 'Please enter a valid username.',
     regExp: /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/

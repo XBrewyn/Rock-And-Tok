@@ -64,7 +64,7 @@ const endpoint = async (req: Request, res: Response): Promise<Response<any, Reco
   } catch (error) {
     const errorMessage: string = `Error saving user! ${error}`;
     const field: RegExpMatchArray | null = errorMessage.match(/{.*}/);
-    console.log(errorMessage)
+
     if (field && field[0]) {
       invalidFields = JSON.parse(
         field[0]

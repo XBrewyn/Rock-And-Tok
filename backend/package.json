@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set NODE_ENV=DEVELOPMENT && ts-node-dev --respawn ./api/index.ts"
+    "start:mac": "NODE_ENV=DEVELOPMENT ts-node-dev --respawn ./api/index.ts",
+    "start:win": "set NODE_ENV=DEVELOPMENT && ts-node-dev --respawn ./api/index.ts"
   },
   "keywords": [],
   "author": "",
