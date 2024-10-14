@@ -7,18 +7,20 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import reducer from './global/reduce';
 import initialState from './global/state';
-import { isStudent, send } from './tools/functions';
+import { isAdmin, isSignOut, isStudent, send } from './tools/functions';
 import { HTTP_STATUS_CODES } from './tools/const';
 import ACTION from './global/action';
+import RouterAdmin from './routers/Admin';
 
 const App: React.FC = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { user: { role } } = state;
 
   useEffect(() => {
     setUser();
   }, []);
 
-  const setUser = async () => {
+  const setUser = async (): Promise<void> => {
     const { response } = await send({ api: 'auth' }).post();
 
     if (response.statusCode === HTTP_STATUS_CODES.OK) {
@@ -30,8 +32,9 @@ const App: React.FC = (): JSX.Element => {
     <context.Provider value={[state, dispatch]}>
       <Router>
         <Nav />
-        {state.user.role === null && <RouterHome />}
-        {isStudent(state.user.role) && <RouterStudent />}
+        {isSignOut(role) && <RouterHome />}
+        {isStudent(role) && <RouterStudent />}
+        {isAdmin(role) && <RouterAdmin />}
         <Footer />
       </Router>
     </context.Provider>

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { studentTabs, homeTabs } from './data';
+import { studentTabs, homeTabs, AdminTabs } from './data';
 import { Link, useLocation } from 'react-router-dom';
 import style from './style.module.sass';
-import { getClassName, isSignOut, isStudent } from '../../tools/functions';
+import { getClassName, isAdmin, isSignOut, isStudent } from '../../tools/functions';
 import Loading from './Loading';
 import { Tab } from './type';
 import context from '../../global/context';
@@ -24,6 +24,10 @@ const Nav: React.FC = (): JSX.Element => {
 
     if (isSignOut(role)) {
       setTabs(homeTabs);
+    }
+
+    if (isAdmin(role)) {
+      setTabs(AdminTabs);
     }
   }, [role]);
 

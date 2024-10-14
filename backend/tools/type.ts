@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { HTTP_STATUS_CODES, ROLE } from './consts';
 import { ObjectId } from 'mongodb';
 
@@ -61,6 +61,12 @@ type TryCatch = {
   endpoint: (response: ResponseSend) => Promise<any>;
 };
 
+type RequestType = Request & {
+  user: {
+    type: string; _id: string | ObjectId;
+  };
+};
+
 export type {
   ObjectValueString,
   ObjectValueNumber,
@@ -70,5 +76,6 @@ export type {
   Location,
   Validator,
   ObjectValuValidator,
-  TryCatch
+  TryCatch,
+  RequestType
 };

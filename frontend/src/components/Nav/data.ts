@@ -26,7 +26,19 @@ const studentTabs: Tab[] = [
   },
 ];
 
+const AdminTabs: Tab[] = [
+  {
+    label: 'Home',
+    path: '/'
+  },
+  {
+    label: 'Sign-out',
+    path: '/sign-out'
+  },
+];
+
 export {
   homeTabs,
-  studentTabs
+  studentTabs,
+  AdminTabs
 };

@@ -110,6 +110,16 @@ const isStudent = (role: Role): boolean =>
   role === ROLE.STUDENT;
 
 /**
+ * Checks if the provided role is a student.
+ *
+ * @param {Role} role - The role to check.
+ * @returns {boolean} True if the role is 'STUDENT', otherwise false.
+ */
+const isAdmin = (role: Role): boolean =>
+  role === ROLE.ADMIN;
+
+
+/**
  * Checks if the user has signed out by checking if the role is null.
  *
  * @param {Role} role - The role to check (can be null when signed out).
@@ -123,4 +133,5 @@ export {
   send,
   isStudent,
   isSignOut,
+  isAdmin
 };

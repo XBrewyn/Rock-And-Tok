@@ -7,8 +7,9 @@ const Home: React.FC = (): JSX.Element => {
   const [state, setState] = useState<Question[]>(questions);
   const [index, setIndex] = useState<number>(0);
   const timerRef = useRef<any>(null);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState<string>('');
   const [canStart, setCanStart] = useState<boolean>(false);
+  const [canShowResult, setCanShowResult] = useState<boolean>(false);
 
   useEffect(() => {
     setInput(state[index].studentAnswer);
@@ -29,6 +30,8 @@ const Home: React.FC = (): JSX.Element => {
       });
 
       setInput('');
+    } else {
+      setCanShowResult(true);
     }
   }
 
@@ -43,10 +46,6 @@ const Home: React.FC = (): JSX.Element => {
     if (index > 0) {
       setIndex((currentIndex) => currentIndex - 1);
     }
-  }
-
-  const resetQuiz = (): void => {
-    setState(questions);
   }
 
   const startTimer = () => {
@@ -73,6 +72,7 @@ const Home: React.FC = (): JSX.Element => {
         seconds = 0;
         minutes = 0;
         clearInterval(interval);
+        setCanShowResult(true);
       }
 
       if (timerRef.current) {
@@ -84,48 +84,66 @@ const Home: React.FC = (): JSX.Element => {
       time < 10 ? `0${time}` : time;
   }
 
-  const onStart = () => {
+  const onStart = (): void => {
     startTimer();
     setCanStart(true);
   }
 
+  const getResult = (): string =>
+   `${state.filter(({ isCorrect }) => isCorrect).length} / ${state.length}`;
+
+  if (canShowResult) {
+    console.log(state)
+  }
+
   return (
     <section className={style.quiz}>
-      <header className={style.quiz__header}>
-        <h1>Quiz</h1>
-      </header>
-      {canStart ? (
-        <div className={style.quiz__container}>
-          <div className={style.quiz__button}>
-            <button onClick={onClickPrevtButton}>Prev</button>
-          </div>
-          <div className={style.quiz__question}>
-            <span ref={timerRef}>00:00:00</span>
-            <p>{state[index].question}</p>
-            <textarea
-              className={style.quiz__input}
-              onChange={onChange}
-              placeholder="Your answer"
-              value={input}
-            />
+      {!canShowResult ? (
+        <>
+          <header className={style.quiz__header}>
+            <h2>Test your skills</h2>
+          </header>
+          {canStart ? (
+            <div className={style.quiz__container}>
+              <div className={style.quiz__button}>
+                <button onClick={onClickPrevtButton}>Prev</button>
+              </div>
+              <div className={style.quiz__question}>
+                <span ref={timerRef}>00:00:00</span>
+                <p>{state[index].question}</p>
+                <textarea
+                  className={style.quiz__input}
+                  onChange={onChange}
+                  placeholder="Your answer"
+                  value={input}
+                />
 
-            <div className={style.quiz__button}>
-              <button onClick={onClickPrevtButton}>Prev</button>
-              <button onClick={onClickNextButton}>Next</button>
+                <div className={style.quiz__button}>
+                  <button onClick={onClickPrevtButton}>Prev</button>
+                  <button onClick={onClickNextButton}>Next</button>
+                </div>
+              </div>
+              <div className={style.quiz__button}>
+                <button onClick={onClickNextButton}>Next</button>
+              </div>
             </div>
-          </div>
-          <div className={style.quiz__button}>
-            <button onClick={onClickNextButton}>Next</button>
-          </div>
-        </div>
+          ) : (
+            <div className={style.quiz__button}>
+              <button
+                className={style.quiz__buttonStart}
+                onClick={onStart}
+              >
+                start
+              </button>
+            </div>
+          )}
+        </>
       ) : (
-        <div className={style.quiz__button}>
-          <button
-            className={style.quiz__buttonStart}
-            onClick={onStart}
-          >
-            start
-          </button>
+        <div>
+          <header className={style.quiz__headerResult}>
+            <h2>Result: </h2>
+            <p>{getResult()}</p>
+          </header>
         </div>
       )}
     </section>

@@ -1,9 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { RequestType } from '../tools/type';
 
 type Router = {
   path: string;
   method: 'get' | 'post' | 'patch' | 'delete';
-  func: (req: Request, res: Response, next: NextFunction) => void;
+  func: (req: RequestType, res: Response, next: NextFunction) => void;
 };
 
 export type {

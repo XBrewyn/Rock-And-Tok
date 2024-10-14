@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { HTTP_STATUS_CODES, VALIDATOR } from '../../tools/consts';
 import { Field } from './type';
-import { ObjectValueString, ResponseSend } from '../../tools/type';
+import { ObjectValueString, RequestType, ResponseSend } from '../../tools/type';
 import { connectToDatabase, getToken, send, setCookie, hash, getResponse, getLocation } from '../../tools/functions';
 import User from '../../schemas/user.schema';
 
-const endpoint = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
+const endpoint = async (req: RequestType, res: Response) => {
   const response: ResponseSend = getResponse(res, 'Validation failed, please check your input and try again.');
   let invalidFields: ObjectValueString = {};
 

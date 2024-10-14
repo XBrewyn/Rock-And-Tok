@@ -1,13 +1,14 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { LoginTicket, OAuth2Client, TokenPayload } from 'google-auth-library';
 import User from '../../schemas/user.schema';
 import { connectToDatabase, getToken, setCookie, catchTry } from '../../tools/functions';
 import { HTTP_STATUS_CODES } from '../../tools/consts';
+import { RequestType } from '../../tools/type';
 
 const { GOOGLE_ID_CLIENT = '' } = process.env;
 const client = new OAuth2Client(GOOGLE_ID_CLIENT);
 
-const endpoint = async (req: Request, res: Response) => {
+const endpoint = async (req: RequestType, res: Response) => {
   catchTry({
     res,
     message: 'This account does not exist.',

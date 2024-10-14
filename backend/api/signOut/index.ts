@@ -1,8 +1,9 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { HTTP_STATUS_CODES } from '../../tools/consts';
 import { send, auth } from '../../tools/functions';
+import { RequestType } from '../../tools/type';
 
-const endpoint = (req: Request, res: Response): void => {
+const endpoint = (req: RequestType, res: Response): void => {
   const token = auth(res, req);
 
   token.remove();

@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import User from '../../schemas/user.schema';
 import { catchTry, connectToDatabase, getToken, hash,  setCookie } from '../../tools/functions';
 import { HTTP_STATUS_CODES } from '../../tools/consts';
+import { RequestType } from '../../tools/type';
 
-const endpoint = async (req: Request, res: Response) => {
+const endpoint = async (req: RequestType, res: Response) => {
   catchTry({
     res,
     message: 'Invalid email or password.',

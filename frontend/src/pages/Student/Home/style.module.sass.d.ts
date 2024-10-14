@@ -6,6 +6,7 @@ interface CssExports {
   'quiz__buttonStart': string;
   'quiz__container': string;
   'quiz__header': string;
+  'quiz__headerResult': string;
   'quiz__input': string;
   'quiz__question': string;
 }
