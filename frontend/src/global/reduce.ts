@@ -22,10 +22,11 @@ const SetUser = (
     favoriteRockGenre = null,
     photo = null,
     phone = null,
-    role = null
+    role = null,
+    test = null,
   }: User): State => ({
   ...state,
-  user: { _id, email, name, favoriteRockGenre, photo, phone, role }
+  user: { _id, email, name, favoriteRockGenre, photo, phone, role, test }
 });
 
 const cleanCache = (): State => ({

@@ -15,6 +15,15 @@ type User = {
     typeof ROLE.STUDENT |
     null
   );
+  test: {
+    dateStart: Date;
+    isTest: boolean;
+    questions: {
+      question: string;
+      isCorrect: boolean;
+      studentAnswer: string;
+    }[];
+  } | null;
 }
 
 type State = {

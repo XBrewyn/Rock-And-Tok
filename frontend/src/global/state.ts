@@ -8,7 +8,8 @@ const initialState: State = {
     favoriteRockGenre: null,
     photo: null,
     phone: null,
-    role: null
+    role: null,
+    test: null,
   }
 }
 

@@ -1,11 +1,42 @@
 import mongoose, { Schema } from 'mongoose';
 
+const questionSchema = new Schema({
+  question: {
+    type: String,
+    default: null,
+  },
+  isCorrect: {
+    type: Boolean,
+    default: null,
+  },
+  studentAnswer: {
+    type: String,
+    default: null,
+  }
+}, { _id: false });
+
+const testSchema = new Schema({
+  questions: [questionSchema],
+  dateStart: {
+    type: Date,
+    default: Date.now,
+  },
+  isTest: {
+    type: Boolean,
+    default: true,
+  },
+}, { _id: false });
+
 const userSchema = new Schema({
   googleId: {
     type: String,
     default: null,
   },
   name: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -84,6 +115,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: true
   },
+  test: testSchema,
 });
 
 const User = mongoose.model('User', userSchema);

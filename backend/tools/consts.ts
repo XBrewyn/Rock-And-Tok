@@ -20,7 +20,9 @@ const ENDPOINT: ObjectValueString = {
   SING_UP_GOOGLE: 'sign-up-google',
   LOGIN_GOOGLE: 'login-google',
   SING_OUT: 'sign-out',
-  LOGIN: 'login'
+  LOGIN: 'login',
+  STUDENT_TEST: 'student-test',
+  STUDENT_GET: 'student-get'
 };
 
 const VALIDATOR: ObjectValuValidator = {

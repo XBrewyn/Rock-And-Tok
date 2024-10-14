@@ -6,6 +6,8 @@ import login from '../api/login';
 import auth from '../api/auth';
 import signUpGoogle from '../api/signUpGoogle';
 import loginGoogle from '../api/loginGoogle';
+import studentTest from '../api/student/test';
+import studentGet from '../api/student/get';
 
 const config: Router[] = [
   {
@@ -42,6 +44,16 @@ const config: Router[] = [
     path: ENDPOINT.LOGIN_GOOGLE,
     method: 'post',
     func: loginGoogle,
+  },
+  {
+    path: ENDPOINT.STUDENT_TEST,
+    method: 'patch',
+    func: studentTest,
+  },
+  {
+    path: ENDPOINT.STUDENT_GET,
+    method: 'get',
+    func: studentGet,
   },
 ];
 

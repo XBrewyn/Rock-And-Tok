@@ -3,151 +3,181 @@ import { Question } from './type';
 const questions: Question[] = [
   {
     question: '¿Dónde vives?',
-    answer: 'Where do you live?',
+    answers: ['Where do you live?'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: '¿Cómo has estado?',
-    answer: 'How have you been?',
+    answers: ['How have you been?'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: '¿Qué estás estudiando?',
-    answer: 'What are you studying?',
+    answers: ['What are you studying?'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: '¿Cuánto tiempo tienes de casado/a?',
-    answer: 'How long have you been married?',
+    answers: [
+      'How long have you been married?',
+      'How long have you been married for?'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Ella tiene 25 años.',
-    answer: 'She is 25 years old.',
+    answers: [
+      'She is 25 years old.',
+      'She\'s 25 years old.',
+      'She is twenty years old.',
+      'She\'s twenty years old.',
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'El nombre de mi mejor amigo es Frank.',
-    answer: 'My best friend\'s name is Frank.',
+    answers: ['My best friend\'s name is Frank.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Fumar es malo para ti.',
-    answer: 'Smoking is bad for you.',
+    answers: ['Smoking is bad for you.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Estoy interesado/a en comprar un TV nuevo.',
-    answer: 'I\'m interested in buying a new TV.',
+    answers: ['I\'m interested in buying a new TV.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Este regalo es para mi sobrina.',
-    answer: 'This gift is for my niece.',
+    answers: ['This gift is for my niece.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Ese es su carro (de ella).',
-    answer: 'That is her car.',
+    answers: ['That is her car.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Ellos solían ir a la montaña cuando eran niños.',
-    answer: 'They used to go to the mountains when they were kids.',
+    answers: [
+      'They used to go to the mountains when they were kids.',
+      'They used to go hiking when they were kids.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'A nosotros nos encanta ir de compras.',
-    answer: 'We love going shopping.',
+    answers: [
+      'We love going shopping.',
+      'We love to go shopping.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Él estaba arreglando su carro cuando su mamá lo llamó.',
-    answer: 'He was fixing his car when his mom called him.',
+    answers: [
+      'He was fixing his car when his mom called him.',
+     ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Estoy preocupado por ustedes.',
-    answer: 'I am worried about you all.',
+    answers: [
+      'I am worried about you all.',
+      'I\'m worried about you all.',
+      'I\'m worried about you guys.',
+      'I am worried about you guys.',
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: '¿Por qué estás tan triste?',
-    answer: 'Why are you so sad?',
+    answers: ['Why are you so sad?'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: '¿Has estado alguna vez en Korea?',
-    answer: 'Have you ever been to Korea?',
+    answers: ['Have you ever been to Korea?'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Te esperé por más de quince minutos.',
-    answer: 'I waited for you for more than fifteen minutes.',
+    answers: [
+      'I waited for you for more than fifteen minutes.',
+      'I waited for you for more than 15 minutes.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Tengo que tomar clases de inglés.',
-    answer: 'I have to take English classes.',
+    answers: ['I have to take English classes.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Casi nunca tomo refresco.',
-    answer: 'I almost never drink soda.',
+    answers: [
+      'I almost never drink soda.',
+      'I hardly ever drink soda'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Estaré trabajando para una empresa que vende calzados.',
-    answer: 'I will be working for a company that sells shoes.',
+    answers: ['I will be working for a company that sells shoes.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Voy a llamar a mi mamá cuando termine este examen.',
-    answer: 'I\'m going to call my mom when I finish this exam.',
+    answers: ['I\'m going to call my mom when I finish this exam.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Él estaba pensando en ir a la universidad en el verano.',
-    answer: 'He was thinking about going to university in the summer.',
+    answers: [
+      'He was thinking about going to university in the summer.',
+      'He was thinking about going to the university in summer.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'A veces escucho salsa, pero prefiero el rock and roll.',
-    answer: 'I sometimes listen to salsa, but I prefer rock and roll.',
+    answers: ['I sometimes listen to salsa, but I prefer rock and roll.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Mi tío fue a la oficina esta mañana a buscar sus llaves.',
-    answer: 'My uncle went to the office this morning to get his keys.',
+    answers: ['My uncle went to the office this morning to get his keys.'],
     isCorrect: false,
     studentAnswer: ''
   },
   {
     question: 'Este fin de semana, voy a estar libre así que creo que iré al concierto de Linkin Park.',
-    answer: 'This weekend, I\'ll be free so I think I\'ll go to the Linkin Park concert.',
+    answers: ['This weekend, I\'ll be free so I think I\'ll go to the Linkin Park concert.'],
     isCorrect: false,
     studentAnswer: ''
   }

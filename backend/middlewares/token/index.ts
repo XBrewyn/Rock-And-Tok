@@ -17,7 +17,9 @@ const endpoint = async (req: Request, res: Response, next: NextFunction) => {
 
   if (
     tokenFromCookie && (
-      isEndpoint(ENDPOINT.AUTH)
+      isEndpoint(ENDPOINT.AUTH) ||
+      isEndpoint(ENDPOINT.STUDENT_TEST) ||
+      isEndpoint(ENDPOINT.STUDENT_GET)
     )
   ) {
     return verifyToken(verifyTokenOpcion, tokenFromCookie);

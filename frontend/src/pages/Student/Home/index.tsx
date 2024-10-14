@@ -1,38 +1,67 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { questions } from './data';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { questions as data } from './data';
 import { Question } from './type';
 import style from './style.module.sass';
+import { send } from '../../../tools/functions';
+import context from '../../../global/context';
 
 const Home: React.FC = (): JSX.Element => {
-  const [state, setState] = useState<Question[]>(questions);
+  const [{ user }] = useContext(context);
+  const [state, setState] = useState<Question[]>(data);
   const [index, setIndex] = useState<number>(0);
   const timerRef = useRef<any>(null);
   const [input, setInput] = useState<string>('');
   const [canStart, setCanStart] = useState<boolean>(false);
   const [canShowResult, setCanShowResult] = useState<boolean>(false);
+  const { test: { isTest = true, questions = [] } } = user;
 
   useEffect(() => {
-    setInput(state[index].studentAnswer);
-  }, [state[index].studentAnswer]);
+    if (index < state.length) {
+      setInput(state[index].studentAnswer);
+    }
+  }, [index, state]);
 
   const onClickNextButton = () => {
-    if (index < state.length - 1 && input) {
-      setIndex((currentIndex) => currentIndex + 1);
-      setState((currentState) => {
-        const newState = [...currentState];
-        const question: string = formatInputValue(newState[index].answer);
-        const answer: string = formatInputValue(input);
-
-        newState[index].studentAnswer = formatInputValue(input);
-        newState[index].isCorrect = question === answer;
-
-        return newState;
-      });
-
-      setInput('');
-    } else {
-      setCanShowResult(true);
+    const len: number = state.length - 1;
+  
+    if (input) {
+      updateState();
+      
+      if (index === len) {
+        setCanShowResult(true);
+        saveTest();
+      }
     }
+  };
+
+  const updateState = () => {
+    setState((currentState) => {
+      const newState = [...currentState];
+      const questions: string[] = newState[index].answers;
+      const answer: string = formatInputValue(input);
+  
+      newState[index].studentAnswer = answer;
+      newState[index].isCorrect = questions.some(
+        (question: string) => formatInputValue(question) === answer
+      );
+  
+      return newState;
+    });
+  
+    setInput('');
+  
+    if (index < state.length - 1) {
+      setIndex((currentIndex) => currentIndex + 1);
+    }
+  };
+
+  const saveTest = async () => {
+    await send({
+      api: 'student-test',
+      data: {
+        questions: state
+      }
+    }).patch();
   }
 
   const formatInputValue = (value: string) =>
@@ -89,16 +118,15 @@ const Home: React.FC = (): JSX.Element => {
     setCanStart(true);
   }
 
-  const getResult = (): string =>
-   `${state.filter(({ isCorrect }) => isCorrect).length} / ${state.length}`;
+  const getScore = (): string => {
+    const data = (!isTest && questions.length > 0) ? questions : state;
 
-  if (canShowResult) {
-    console.log(state)
+    return `${data.filter(({ isCorrect = false }): boolean => isCorrect).length} / ${data.length}`;
   }
 
   return (
     <section className={style.quiz}>
-      {!canShowResult ? (
+      {!canShowResult && isTest ? (
         <>
           <header className={style.quiz__header}>
             <h2>Test your skills</h2>
@@ -142,7 +170,7 @@ const Home: React.FC = (): JSX.Element => {
         <div>
           <header className={style.quiz__headerResult}>
             <h2>Result: </h2>
-            <p>{getResult()}</p>
+            <p>{getScore()}</p>
           </header>
         </div>
       )}

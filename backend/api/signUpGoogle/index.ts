@@ -37,7 +37,12 @@ const endpoint = async (req: RequestType, res: Response) => {
         lastName: family_name.toLowerCase(),
         location: await getLocation(req),
         name: given_name.toLowerCase(),
-        photo: picture
+        photo: picture,
+        test: {
+          questions: [],
+          dateStart: Date.now(),
+          isTest: true,
+        }
       });
 
       await user.save();
