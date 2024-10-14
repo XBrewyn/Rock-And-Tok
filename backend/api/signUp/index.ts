@@ -48,6 +48,11 @@ const endpoint = async (req: RequestType, res: Response) => {
       name: name.toLowerCase(),
       password: await hash.create(password),
       phone: phone.toLowerCase(),
+      test: {
+        questions: [],
+        dateStart: Date.now(),
+        isTest: true,
+      }
     });
 
     await user.save();
