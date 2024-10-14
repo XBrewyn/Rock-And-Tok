@@ -40,7 +40,7 @@ const Home: React.FC = (): JSX.Element => {
       const questions: string[] = newState[index].answers;
       const answer: string = formatInputValue(input);
   
-      newState[index].studentAnswer = answer;
+      newState[index].studentAnswer = input;
       newState[index].isCorrect = questions.some(
         (question: string) => formatInputValue(question) === answer
       );
