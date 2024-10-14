@@ -16,8 +16,14 @@ const Home: React.FC = (): JSX.Element => {
   const { test: { isTest = true, questions = [] } } = user;
 
   useEffect(() => {
+    const len: number = state.length - 1;
+
     if (index < state.length) {
       setInput(state[index].studentAnswer);
+    }
+
+    if (canShowResult) {
+      saveTest();
     }
   }, [index, state]);
 
@@ -29,7 +35,6 @@ const Home: React.FC = (): JSX.Element => {
       
       if (index === len) {
         setCanShowResult(true);
-        saveTest();
       }
     }
   };
