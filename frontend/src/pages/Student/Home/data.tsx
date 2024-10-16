@@ -143,7 +143,10 @@ const questions: Question[] = [
   },
   {
     question: 'Estaré trabajando para una empresa que vende calzados.',
-    answers: ['I will be working for a company that sells shoes.'],
+    answers: [
+      'I will be working for a company that sells shoes.',
+      'I\'ll be working for a company that sells shoes.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },
@@ -151,7 +154,9 @@ const questions: Question[] = [
     question: 'Voy a llamar a mi mamá cuando termine este examen.',
     answers: [
       'I\'m going to call my mom when I finish this exam.',
-      'I\'m going to call my mom when I finish this test.'
+      'I\'m going to call my mom when I finish this test.',
+      'I am going to call my mom when I finish this exam.',
+      'I am going to call my mom when I finish this test.'
     ],
     isCorrect: false,
     studentAnswer: ''
@@ -179,7 +184,16 @@ const questions: Question[] = [
   },
   {
     question: 'Este fin de semana, voy a estar libre así que creo que iré al concierto de Linkin Park.',
-    answers: ['This weekend, I\'ll be free so I think I\'ll go to the Linkin Park concert.'],
+    answers: [
+      'This weekend, I\'ll be free so I think I\'ll go to the Linkin Park concert.',
+      'This weekend, I will be free so I think I will go to the Linkin Park concert.',
+      'This weekend, I\'ll be free so I think I will go to the Linkin Park concert.',
+      'This weekend, I will be free so I think I\'ll go to the Linkin Park concert.',
+      'This weekend, I am going to be off, so I think I will go to the Linkin Park concert.',
+      'This weekend, I\'m going to be off, so I think I\'ll go to the Linkin Park concert.',
+      'This weekend, I\'m going to be off, so I think I will go to the Linkin Park concert.',
+      'This weekend, I am going to be off, so I think I\'ll go to the Linkin Park concert.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   }

@@ -37,16 +37,14 @@ const Form: React.FC<Props> = ({
 
   const onClick = async (event: any): Promise<void> => {
     event && event.preventDefault();
-    setIsLoading(true);
 
     if (isValid()) {
       handleApiResponse({ data: getData(), api });
     }
-
-    setIsLoading(false);
   }
 
   const handleApiResponse = async ({ data, api }: { data: any, api: string;}) => {
+    setIsLoading(true);
     const { response: { data: dataResponse, statusCode } } = await send({ api, data }).post();
     const isBadRequest: boolean = statusCode === HTTP_STATUS_CODES.BAD_REQUEST;
     const isSuccessfully: boolean = statusCode === HTTP_STATUS_CODES.OK;
@@ -65,6 +63,8 @@ const Form: React.FC<Props> = ({
         }
       });
     }
+    
+    setIsLoading(false);
   }
 
   const getData = (): ObjectValueString => {
