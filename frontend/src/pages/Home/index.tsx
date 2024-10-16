@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import style from './style.module.sass';
+import Conffeti from '../../components/Conffeti';
 
 const Home: React.FC = (): JSX.Element => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -126,6 +127,7 @@ const Home: React.FC = (): JSX.Element => {
         </div>
         <div ref={backgroundRef} className={style.home__background} />
       </div>
+      {playButtonRef.current && <Conffeti />}
     </section>
   );
 };

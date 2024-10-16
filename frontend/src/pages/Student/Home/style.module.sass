@@ -32,10 +32,12 @@
     padding: 20px
 
     .quiz__buttonStart
-      border-radius: 50%
       font-size: 28px
-      padding: 50px 25px
+      padding: 50px 76px
       text-transform: uppercase
+
+    svg
+      animation: beat 1.5s infinite
 
   &__button button
     background-color: #9c27b0
@@ -74,3 +76,13 @@
 
   @media only screen and (max-width: 481px)
     height: 70vh
+
+  @keyframes beat
+    0%
+      transform: scale(0.8)
+
+    50%
+      transform: scale(1)
+
+    100%
+      transform: scale(0.8)

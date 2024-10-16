@@ -4,6 +4,7 @@ import { Question } from './type';
 import style from './style.module.sass';
 import { send } from '../../../tools/functions';
 import context from '../../../global/context';
+import Conffeti from '../../../components/Conffeti';
 
 const Home: React.FC = (): JSX.Element => {
   const [{ user }] = useContext(context);
@@ -29,10 +30,10 @@ const Home: React.FC = (): JSX.Element => {
 
   const onClickNextButton = () => {
     const len: number = state.length - 1;
-  
+
     if (input) {
       updateState();
-      
+
       if (index === len) {
         setCanShowResult(true);
       }
@@ -44,17 +45,17 @@ const Home: React.FC = (): JSX.Element => {
       const newState = [...currentState];
       const questions: string[] = newState[index].answers;
       const answer: string = formatInputValue(input);
-  
+
       newState[index].studentAnswer = input;
       newState[index].isCorrect = questions.some(
         (question: string) => formatInputValue(question) === answer
       );
-  
+
       return newState;
     });
-  
+
     setInput('');
-  
+
     if (index < state.length - 1) {
       setIndex((currentIndex) => currentIndex + 1);
     }
@@ -129,6 +130,8 @@ const Home: React.FC = (): JSX.Element => {
     return `${data.filter(({ isCorrect = false }): boolean => isCorrect).length} / ${data.length}`;
   }
 
+
+
   return (
     <section className={style.quiz}>
       {!canShowResult && isTest ? (
@@ -166,7 +169,17 @@ const Home: React.FC = (): JSX.Element => {
                 className={style.quiz__buttonStart}
                 onClick={onStart}
               >
-                start
+                <svg
+                  stroke="currentColor"
+                  fill="#9c27b0b3"
+                  strokeWidth="0"
+                  viewBox="0 0 512 512"
+                  height="100px"
+                  width="100px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z"></path>
+                </svg>
               </button>
             </div>
           )}
@@ -177,6 +190,7 @@ const Home: React.FC = (): JSX.Element => {
             <h2>Result: </h2>
             <p>{getScore()}</p>
           </header>
+          <Conffeti deleteTime={5000}/>
         </div>
       )}
     </section>

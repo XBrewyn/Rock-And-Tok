@@ -1,0 +1,23 @@
+.confetti
+  height: 100% !important
+  pointer-events: none
+  position: fixed !important
+  left: 0
+  top: 0
+  width: 100% !important
+
+  &__container
+    animation: fall 3s infinite
+    background-color: red
+    height: 10px
+    position: absolute
+    width: 10px
+
+@keyframes fall
+  0%
+    transform: translateY(-100vh) rotate(0deg)
+    opacity: 1
+
+  100%
+    transform: translateY(100vh) rotate(720deg)
+    opacity: 0
