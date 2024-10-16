@@ -72,8 +72,7 @@ const questions: Question[] = [
   {
     question: 'Ellos solían ir a la montaña cuando eran niños.',
     answers: [
-      'They used to go to the mountains when they were kids.',
-      'They used to go hiking when they were kids.'
+      'They used to go to the mountain when they were kids.'
     ],
     isCorrect: false,
     studentAnswer: ''
@@ -150,7 +149,10 @@ const questions: Question[] = [
   },
   {
     question: 'Voy a llamar a mi mamá cuando termine este examen.',
-    answers: ['I\'m going to call my mom when I finish this exam.'],
+    answers: [
+      'I\'m going to call my mom when I finish this exam.',
+      'I\'m going to call my mom when I finish this test.'
+    ],
     isCorrect: false,
     studentAnswer: ''
   },

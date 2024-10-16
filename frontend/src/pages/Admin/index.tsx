@@ -19,7 +19,7 @@ const Admin: React.FC = (): JSX.Element => {
   return (
     <section className={style.table}>
       {students.map(({ name, lastName, email, favoriteRockGenre, location, photo, test: { questions } }) => (
-        <>
+        <div className={style.table__container}>
           <header>
             <ul>
               {photo && <li><img src={photo} width={50} height={50} /></li>}
@@ -30,15 +30,15 @@ const Admin: React.FC = (): JSX.Element => {
               <li><span>Location:</span> {location.city}, {location.region}, {location.country}</li>
             </ul>
           </header>
-          {!!questions.length && (
-            <table>
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Student answer</th>
-                  <th>Response</th>
-                </tr>
-              </thead>
+          <table>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Student answer</th>
+                <th>Response</th>
+              </tr>
+            </thead>
+            {!!questions.length && (
               <tbody>
                 {questions.map(({ studentAnswer, question, isCorrect, }: any) => (
                   <tr>
@@ -48,9 +48,9 @@ const Admin: React.FC = (): JSX.Element => {
                   </tr>
                 ))}
               </tbody>
-            </table>
-          )}
-        </>
+            )}
+          </table>
+        </div>
       ))}
     </section>
   );

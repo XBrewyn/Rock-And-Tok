@@ -89,7 +89,7 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'public', 'index.html'),
       hash: true,
-      favicon: './public/favicon.ico',
+      favicon: pathPublic('images/favicon.ico'),
     }),
     new Dotenv(),
   ],

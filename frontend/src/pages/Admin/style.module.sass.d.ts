@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'table': string;
+  'table__container': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
