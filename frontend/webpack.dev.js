@@ -79,6 +79,7 @@ module.exports = {
         { from: pathPublic('audios'), to: '' },
         { from: pathPublic('images'), to: '' },
         { from: pathPublic('videos'), to: '' },
+        { from: pathPublic('fonts/Futura.otf'), to: '' },
       ],
     }),
     new MiniCssExtractPlugin({
@@ -88,7 +89,7 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'public', 'index.html'),
       hash: true,
-      // favicon: './public/favicon.ico',
+      favicon: './public/favicon.ico',
     }),
     new Dotenv(),
   ],

@@ -70,6 +70,7 @@ const config = {
         { from: pathPublic('images/log-in.jpg'), to: '' },
         { from: pathPublic('audios/home.mp3'), to: '' },
         { from: pathPublic('videos/home.mp4'), to: '' },
+        { from: pathPublic('fonts/Futura.otf'), to: '' },
       ],
     }),
     new MiniCssExtractPlugin({
