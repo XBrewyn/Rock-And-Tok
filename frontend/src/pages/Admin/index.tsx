@@ -18,7 +18,9 @@ const Admin: React.FC = (): JSX.Element => {
 
   return (
     <section className={style.table}>
-      {students.map(({ name, lastName, email, favoriteRockGenre, location, photo, test: { questions } }) => (
+      {students.length ? (
+        <>
+         {students.map(({ name, lastName, email, favoriteRockGenre, location, photo, test: { questions } }) => (
         <div className={style.table__container}>
           <header>
             <ul>
@@ -52,6 +54,8 @@ const Admin: React.FC = (): JSX.Element => {
           </table>
         </div>
       ))}
+        </>
+      ): <h2>Aún no se ha registrado ningún estudiante.</h2>}
     </section>
   );
 };

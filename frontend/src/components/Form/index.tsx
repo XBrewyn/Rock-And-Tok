@@ -92,10 +92,11 @@ const Form: React.FC<Props> = ({
       const value: string = field.value || '';
       const isEmpty: boolean = !value;
       const isErrorMessage: boolean = !!field.validator && !field.validator.regExp.test(value);
+      const avoidEmptyField = isErrorMessage && !field.avoidEmptyField || value && isErrorMessage;
 
       if (isEmpty && !field.avoidEmptyField) {
         field.errorMessage = 'Please fill out this required field.';
-      } else if (isErrorMessage && !field.avoidEmptyField || value && isErrorMessage) {
+      } else if (avoidEmptyField) {
         field.errorMessage = field.validator?.message;
       } else {
         field.errorMessage = '';
@@ -103,6 +104,10 @@ const Form: React.FC<Props> = ({
 
       if (isValid) {
         isValid = !(isEmpty || isErrorMessage);
+
+        if (!avoidEmptyField) {
+          isValid = true;
+        }
       }
 
       setField(fieldKey, field);

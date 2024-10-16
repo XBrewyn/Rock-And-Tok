@@ -32,6 +32,10 @@ const endpoint = async (req: RequestType, res: Response) => {
     }
   });
 
+  if (invalidFields['phone'] && !phone) {
+    delete invalidFields['phone'];
+  }
+
   if (Object.keys(invalidFields).length) {
     response.data = invalidFields;
     return send(response);
