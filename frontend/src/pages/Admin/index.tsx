@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { send } from '../../tools/functions';
+import { formatDate, send } from '../../tools/functions';
 import style from './style.module.sass';
 
 const Admin: React.FC = (): JSX.Element => {
@@ -20,7 +20,7 @@ const Admin: React.FC = (): JSX.Element => {
     <section className={style.table}>
       {students.length ? (
         <>
-         {students.map(({ name, lastName, email, favoriteRockGenre, location, photo, test: { questions } }) => (
+         {students.map(({ name, lastName, email, favoriteRockGenre, location, photo, test: { questions, dateStart } }) => (
         <div className={style.table__container}>
           <header>
             <ul>
@@ -30,6 +30,7 @@ const Admin: React.FC = (): JSX.Element => {
               <li><span>Email:</span> {email} </li>
               <li><span>Favorite Rock Genre:</span> {favoriteRockGenre}</li>
               <li><span>Location:</span> {location.city}, {location.region}, {location.country}</li>
+              <li><span>Date start:</span> {formatDate(dateStart)}</li>   
             </ul>
           </header>
           <table>

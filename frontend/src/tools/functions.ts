@@ -128,10 +128,32 @@ const isAdmin = (role: Role): boolean =>
 const isSignOut = (role: Role): boolean =>
   role === null;
 
+/**
+ * Formats an ISO date string into a more readable format.
+ * 
+ * @param {string} isoDate - The ISO date string to format (e.g., '2024-10-16T21:38:29.542Z').
+ * @param {boolean} [is12HourFormat=false] - Whether to use 12-hour format with AM/PM. Defaults to 24-hour format.
+ * @returns {string} The formatted date string (e.g., 'October 16, 2024, 21:38').
+ */
+function formatDate(isoDate: string, is12HourFormat: boolean = true): string {
+  const date = new Date(isoDate);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: is12HourFormat,
+  };
+
+  return date.toLocaleString('en-US', options);
+}
+
 export {
   getClassName,
   send,
   isStudent,
   isSignOut,
-  isAdmin
+  isAdmin,
+  formatDate
 };
