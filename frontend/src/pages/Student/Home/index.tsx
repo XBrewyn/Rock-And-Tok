@@ -130,8 +130,6 @@ const Home: React.FC = (): JSX.Element => {
     return `${data.filter(({ isCorrect = false }): boolean => isCorrect).length} / ${data.length}`;
   }
 
-
-
   return (
     <section className={style.quiz}>
       {!canShowResult && isTest ? (
@@ -190,7 +188,7 @@ const Home: React.FC = (): JSX.Element => {
             <h2>Result: </h2>
             <p>{getScore()}</p>
           </header>
-          <Conffeti deleteTime={5000}/>
+          <Conffeti />
         </div>
       )}
     </section>

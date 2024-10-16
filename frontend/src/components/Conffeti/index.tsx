@@ -1,11 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import style from './style.module.sass';
 
-interface Props {
-  deleteTime?: number;
-}
-
-const Confetti: React.FC<Props> = ({ deleteTime = 400 }) => {
+const Confetti: React.FC = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -15,7 +11,7 @@ const Confetti: React.FC<Props> = ({ deleteTime = 400 }) => {
         confetti.classList.add(style.confetti__container);
 
         // Random size and position
-        const size = 20 + 'px';
+        const size = 10 + 'px';
         const left = Math.random() * 100 + 'vw';
         const delay = Math.random() * 5 + 's';
         const duration = Math.random() * 2 + 2 + 's';
@@ -32,7 +28,7 @@ const Confetti: React.FC<Props> = ({ deleteTime = 400 }) => {
 
         setTimeout(() => {
           confetti.remove();
-        }, deleteTime);
+        }, 5000);
       }
     };
 
@@ -41,7 +37,7 @@ const Confetti: React.FC<Props> = ({ deleteTime = 400 }) => {
       return colors[Math.floor(Math.random() * colors.length)];
     };
 
-    const interval = setInterval(createConfetti);
+    const interval = setInterval(createConfetti, 50);
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
 

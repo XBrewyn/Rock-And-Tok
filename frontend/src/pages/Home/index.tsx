@@ -127,7 +127,6 @@ const Home: React.FC = (): JSX.Element => {
         </div>
         <div ref={backgroundRef} className={style.home__background} />
       </div>
-      {playButtonRef.current && <Conffeti />}
     </section>
   );
 };

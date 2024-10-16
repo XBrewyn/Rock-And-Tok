@@ -35,7 +35,7 @@ const App: React.FC = (): JSX.Element => {
         {isSignOut(role) && <RouterHome />}
         {isStudent(role) && <RouterStudent />}
         {isAdmin(role) && <RouterAdmin />}
-        <Footer />
+        {isSignOut(role) && <Footer />}
       </Router>
     </context.Provider>
   );
