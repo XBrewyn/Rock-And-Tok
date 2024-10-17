@@ -1,0 +1,35 @@
+.modal
+  align-items: center
+  background-color: rgba(0, 0, 0, 0.6)
+  color: black
+  display: flex
+  height: 100%
+  justify-content: center
+  left: 0
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 4
+
+  > div
+    background-color: white
+    border-radius: 8px
+    max-width: 300px
+    position: relative
+    width: 100%
+
+  &__close
+    cursor: pointer
+    position: absolute
+    right: 20px
+    top: 20px
+
+  &__fadeIn
+    animation: fadeInOut .5s forwards alternate
+
+  @keyframes fadeInOut
+    0%
+      opacity: .5
+
+    100%
+      opacity: 1

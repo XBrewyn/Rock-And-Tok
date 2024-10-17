@@ -9,6 +9,7 @@ interface CssExports {
   'quiz__header': string;
   'quiz__headerResult': string;
   'quiz__input': string;
+  'quiz__modal': string;
   'quiz__question': string;
 }
 export const cssExports: CssExports;

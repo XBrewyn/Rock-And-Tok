@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import style from './style.module.sass';
-import Conffeti from '../../components/Conffeti';
 
 const Home: React.FC = (): JSX.Element => {
   const videoRef = useRef<HTMLVideoElement>(null);

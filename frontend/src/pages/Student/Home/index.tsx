@@ -5,6 +5,7 @@ import style from './style.module.sass';
 import { send } from '../../../tools/functions';
 import context from '../../../global/context';
 import Conffeti from '../../../components/Conffeti';
+import Modal from '../../../components/Modal';
 
 const Home: React.FC = (): JSX.Element => {
   const [{ user }] = useContext(context);
@@ -15,6 +16,7 @@ const Home: React.FC = (): JSX.Element => {
   const [canStart, setCanStart] = useState<boolean>(false);
   const [canShowResult, setCanShowResult] = useState<boolean>(false);
   const { test: { isTest = true, questions = [] } } = user;
+  const [canShowModal, setCanShowModal] = useState<boolean>(isTest);
 
   useEffect(() => {
     const len: number = state.length - 1;
@@ -191,6 +193,22 @@ const Home: React.FC = (): JSX.Element => {
           <Conffeti />
         </div>
       )}
+      <Modal
+        state={[canShowModal, setCanShowModal]}
+      >
+        <div className={style.quiz__modal}>
+          <header>
+            <h2>Instructions:</h2>
+          </header>
+          <ol>
+            <li>You will be presented with 25 sentences in Spanish that you need to write in English.</li>
+            <li>Read the sentences carefully and answer within the 20 minutes allotted for the test.</li>
+            <li>You can go back if you want to correct any question you've already answered within the 20 minutes.</li>
+            <li>Once you're "ready", press the "play" button.</li>
+            <li>Good luck!</li>
+          </ol>
+        </div>
+      </Modal>
     </section>
   );
 }
