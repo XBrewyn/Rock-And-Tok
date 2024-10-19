@@ -1,39 +1,50 @@
 import React, { useState, useMemo } from 'react';
-import { Fields, FormField } from './type';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { Fields, FormField } from './type';
 import style from './style.module.sass';
 import { ObjectValueString } from '../../tools/type';
 import { send } from '../../tools/functions';
 import Loading from './Loading';
 import { HTTP_STATUS_CODES } from '../../tools/const';
+import { Link } from 'react-router-dom';
 
 interface Props {
+  api: string;
   avoidEmptyField?: boolean;
+  bannerURL?: string;
   buttonText: string;
+  canClean?: boolean;
   fields: Fields;
   google?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin'
   onData?: (data: any) => void;
+  successMessage?: string;
   title?: string;
-  bannerURL?: string;
-  api: string;
-}
+  resetPassword?: {
+    label: string;
+    url: string;
+  };
+};
 
 interface State {
   [key: string]: FormField
-}
+};
 
 const Form: React.FC<Props> = ({
+  api,
+  bannerURL,
   buttonText,
+  canClean = true,
   fields,
   google,
   onData = () => { },
+  resetPassword,
+  successMessage,
   title,
-  bannerURL,
-  api
 }): JSX.Element => {
   const [state, setState] = useState<State>(fields);
   const fieldKeys: string[] = useMemo(() => Object.keys(state), []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const onClick = async (event: any): Promise<void> => {
     event && event.preventDefault();
@@ -43,14 +54,17 @@ const Form: React.FC<Props> = ({
     }
   }
 
-  const handleApiResponse = async ({ data, api }: { data: any, api: string;}) => {
+  const handleApiResponse = async ({ data, api }: { data: any, api: string; }) => {
     setIsLoading(true);
     const { response: { data: dataResponse, statusCode } } = await send({ api, data }).post();
     const isBadRequest: boolean = statusCode === HTTP_STATUS_CODES.BAD_REQUEST;
     const isSuccessfully: boolean = statusCode === HTTP_STATUS_CODES.OK;
 
-    if (isSuccessfully) {
+    setIsSuccess(isSuccessfully);
+
+    if (isSuccessfully) {      
       onData(dataResponse);
+      canClean && cleanAllInput();
     }
 
     if (isBadRequest) {
@@ -63,7 +77,7 @@ const Form: React.FC<Props> = ({
         }
       });
     }
-    
+
     setIsLoading(false);
   }
 
@@ -119,6 +133,15 @@ const Form: React.FC<Props> = ({
   const setField = (key: string, value: FormField): void =>
     setState((currentState: State): State => ({ ...currentState, [key]: value }));
 
+  const cleanAllInput = (): void =>
+    fieldKeys.forEach((key: string) => {
+      const field = state[key];
+
+      field.value = '';
+
+      setField(key, field);
+    });
+
   return (
     <div className={style.form}>
       {bannerURL && (
@@ -142,9 +165,20 @@ const Form: React.FC<Props> = ({
           } = state[key];
 
           return (
-            <div key={index}>
+            <div key={index} className={style.form__input}>
               {label && <label className={style.form__label}>{label}</label>}
-              {type !== 'select' && (
+              {type === 'textarea' && (
+                <textarea
+                  name={key}
+                  onChange={onChange}
+                  onKeyDown={onKeyDown}
+                  placeholder={placeholder}
+                  value={value}
+                  autoComplete={autocomplete}
+                />
+              )}
+
+              {!['select', 'textarea'].includes(type) && (
                 <input
                   name={key}
                   onChange={onChange}
@@ -175,6 +209,16 @@ const Form: React.FC<Props> = ({
               )}
 
               {errorMessage && <span className={style.form__error}>{errorMessage}</span>}
+              {
+                isSuccess && 
+                successMessage &&
+                !errorMessage &&
+                (index === fieldKeys.length - 1) && (
+                  <span className={style.form__success}>
+                    {successMessage}
+                  </span>
+                )
+              }
             </div>
           )
         })}
@@ -207,6 +251,14 @@ const Form: React.FC<Props> = ({
             />
           }
         </GoogleOAuthProvider>
+        {resetPassword && (
+          <Link
+            className={style.form__link}
+            to={resetPassword.url}
+          >
+            {resetPassword.label}
+          </Link>
+        )}
       </form>
     </div>
   );

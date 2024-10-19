@@ -51,6 +51,48 @@
     margin-top: 58px
     position: absolute
 
+  &__success
+    color: #4caf50
+    font-size: 12px
+
+  &__link
+    display: block
+    font-size: 12px
+    padding: 10px 0
+
+  &__input
+    input,
+    select,
+    textarea
+      background-color: transparent
+      border-bottom: solid 1px #454545
+      border: none
+      color: white
+      margin-bottom: 20px
+      margin-top: 10px
+      outline: none
+      padding: 10px 0
+      transition: border 0.4s ease
+      width: 100%
+
+      &::placeholder
+        color: white
+
+      &:focus
+        border-bottom: solid 1px white
+
+    select
+      cursor: pointer
+
+    textarea
+      resize: none
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active
+      background-color: transparent !important
+
   @media only screen and (max-width: 936px)
     flex-direction: column
 

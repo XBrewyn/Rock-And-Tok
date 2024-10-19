@@ -45,26 +45,40 @@ const serveApp = (app: Express): void => {
 
 let isConnected: any;
 
-const connectToDatabase = async () => {
+/**
+ * Connects to the MongoDB database if not already connected.
+ * 
+ * This function uses the appropriate MongoDB URI based on the environment (development or production).
+ * It also configures a small connection pool for efficient database connections.
+ * 
+ * @returns {Promise<void>} A promise that resolves once the connection is attempted.
+ * @throws Will throw an error if there's a problem connecting to MongoDB.
+ */
+const connectToDatabase = async (): Promise<void> => {
+  // Check if already connected
   if (isConnected) {
     return;
   }
 
   try {
+    // Determine the appropriate MongoDB URI based on the environment
     const MONGODB_URI: string = isDev()
       ? MONGODB_URI_DEVELOPMENT
       : MONGODB_URI_PRODUCTION;
 
+    // Connect to MongoDB
     await mongoose.connect(MONGODB_URI, {
       minPoolSize: 1,
       maxPoolSize: 1,
     });
+
+    // Set connection status
     isConnected = mongoose.connections[0].readyState;
     console.log('Connected to MongoDB');
   } catch (error: any) {
     console.error('Error connecting to MongoDB:', error.message);
   }
-}
+};
 
 /**
  * Hashing utility for creating and comparing hashed values.
@@ -97,10 +111,21 @@ const hash = {
   },
 };
 
-const initialDatabase = async () => {
+/**
+ * Initializes the database by ensuring an admin user exists.
+ * 
+ * This function checks if an admin user with the name 'admin' already exists in the database.
+ * If no admin user is found, it creates one with the specified credentials and logs the success message.
+ * 
+ * @returns {Promise<void>} A promise that resolves once the initialization process is completed.
+ * @throws Will throw an error if there is a problem with the database operation.
+ */
+const initialDatabase = async (): Promise<void> => {
   try {
+    // Check if an admin user already exists
     let admin = await User.findOne({ name: 'admin' });
 
+    // If no admin is found, create one
     if (!admin) {
       admin = await User.create({
         username: ADMIN_USERNAME,
@@ -115,7 +140,7 @@ const initialDatabase = async () => {
     } else {
       console.log('Admin already exists.');
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error:', error);
   }
 };
@@ -193,12 +218,25 @@ const getResponse = (res: Response, message: string = '') => ({
   statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
 });
 
+/**
+ * Retrieves the location details (country, city, region) based on the request's IP address.
+ * 
+ * This function extracts the IP address from the request headers and fetches the location data
+ * from the ipinfo.io API.
+ * 
+ * @param {Request} req - The request object containing headers to extract the IP address from.
+ * @returns {Promise<Location>} A promise that resolves to a location object containing country, city, and region.
+ * @throws Will throw an error if there is an issue with the API request or response.
+ */
 const getLocation = async (req: Request): Promise<Location> => {
+  // Extract IP address from headers
   const ip: string | string[] | undefined = req.headers['x-forwarded-for'] || '';
 
+  // Fetch location data from ipinfo.io API
   const { country, city, region } = await fetch(`https://ipinfo.io/${ip}?token=52df5d679dc04f`)
     .then(res => res.json());
 
+  // Return the location object
   return {
     country,
     city,

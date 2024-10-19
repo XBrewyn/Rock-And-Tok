@@ -1,11 +1,20 @@
-import { ObjectValueNumber, ObjectValueString, ObjectValuValidator } from './type';
+import {
+  Endpoints,
+  HttpStatusCodes,
+  Roles,
+  Validators
+} from './type';
 
-const ROLE: ObjectValueString = {
+const ROLE: Roles = {
   ADMIN: 'ADMIN',
   STUDENT: 'STUDENT',
 };
 
-const HTTP_STATUS_CODES: ObjectValueNumber = {
+const MESSAGE = {
+  SUCCESSFULLY: 'SUCCESSFULLY',
+};
+
+const HTTP_STATUS_CODES: HttpStatusCodes = {
   OK: 200,
   INTERNAL_SERVER_ERROR: 500,
   BAD_REQUEST: 400,
@@ -14,7 +23,7 @@ const HTTP_STATUS_CODES: ObjectValueNumber = {
   TEMPORARY_REDIRECT: 307,
 };
 
-const ENDPOINT: ObjectValueString = {
+const ENDPOINT: Endpoints = {
   AUTH: 'auth',
   SING_UP: 'sign-up',
   SING_UP_GOOGLE: 'sign-up-google',
@@ -25,7 +34,7 @@ const ENDPOINT: ObjectValueString = {
   STUDENT_GET: 'student-get'
 };
 
-const VALIDATOR: ObjectValuValidator = {
+const VALIDATOR: Validators = {
   USERNAME: {
     message: 'Please enter a valid username.',
     regExp: /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/
@@ -56,5 +65,6 @@ export {
   ROLE,
   HTTP_STATUS_CODES,
   ENDPOINT,
-  VALIDATOR
+  VALIDATOR,
+  MESSAGE
 };

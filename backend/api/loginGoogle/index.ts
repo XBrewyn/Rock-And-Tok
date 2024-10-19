@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { LoginTicket, OAuth2Client, TokenPayload } from 'google-auth-library';
 import User from '../../schemas/user.schema';
 import { connectToDatabase, getToken, setCookie, catchTry } from '../../tools/functions';
-import { HTTP_STATUS_CODES } from '../../tools/consts';
+import { HTTP_STATUS_CODES, MESSAGE } from '../../tools/consts';
 import { RequestType } from '../../tools/type';
 
 const { GOOGLE_ID_CLIENT = '' } = process.env;
@@ -29,7 +29,7 @@ const endpoint = async (req: RequestType, res: Response) => {
       if (user) {
         setCookie({ res, value: getToken({ _id: user._id }) });
         response.data = user;
-        response.message = 'Successfully';
+        response.message =  MESSAGE.SUCCESSFULLY;
         response.statusCode = HTTP_STATUS_CODES.OK;
       }
     }

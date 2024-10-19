@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { HTTP_STATUS_CODES, VALIDATOR } from '../../tools/consts';
+import { HTTP_STATUS_CODES, MESSAGE, VALIDATOR } from '../../tools/consts';
 import { Field } from './type';
 import { ObjectValueString, RequestType, ResponseSend } from '../../tools/type';
 import { connectToDatabase, getToken, send, setCookie, hash, getResponse, getLocation } from '../../tools/functions';
@@ -64,7 +64,7 @@ const endpoint = async (req: RequestType, res: Response) => {
     if (user) {
       setCookie({ res, expires: 30, value: getToken({ _id: user._id }) });
       response.statusCode = HTTP_STATUS_CODES.OK;
-      response.message = 'Successfully';
+      response.message =  MESSAGE.SUCCESSFULLY;
       response.data = user;
     } else {
       response.message = 'Error saving user!';

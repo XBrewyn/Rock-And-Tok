@@ -6,9 +6,12 @@ interface CssExports {
   'form__container': string;
   'form__error': string;
   'form__header': string;
+  'form__input': string;
   'form__label': string;
+  'form__link': string;
   'form__option': string;
   'form__submit': string;
+  'form__success': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

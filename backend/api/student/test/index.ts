@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import User from '../../../schemas/user.schema';
 import { catchTry, connectToDatabase } from '../../../tools/functions';
-import { HTTP_STATUS_CODES } from '../../../tools/consts';
+import { HTTP_STATUS_CODES, MESSAGE } from '../../../tools/consts';
 import { RequestType } from '../../../tools/type';
 
 const endpoint = async (req: RequestType, res: Response) => {
@@ -28,7 +28,7 @@ const endpoint = async (req: RequestType, res: Response) => {
 
       if (user) {
         response.statusCode = HTTP_STATUS_CODES.OK;
-        response.message = 'Successfully updated the test.';
+        response.message =  MESSAGE.SUCCESSFULLY;
       }
     }
   });
