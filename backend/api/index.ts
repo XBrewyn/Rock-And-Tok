@@ -50,7 +50,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(middlewareToken);
-app.use(middlewareCache);
+// app.use(middlewareCache);
 app.use(middlewareImage);
 app.use('/api/v1', router);
 
